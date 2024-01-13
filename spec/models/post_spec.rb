@@ -1,9 +1,6 @@
-# spec/models/post_spec.rb
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:user) { User.create(name: 'John Doe') }
-
   describe 'associations' do
     it { should belong_to(:author).class_name('User') }
     it { should have_many(:comments).dependent(:destroy) }
@@ -20,13 +17,39 @@ RSpec.describe Post, type: :model do
 
   describe 'methods' do
     describe '#update_post_counter' do
-      it 'updates the user posts_counter attribute' do
-        user = User.create(name: 'Sintheys')
-        post = Post.create(title: 'Good morning', author: user)
+      it 'updates the posts_counter of the author' do
+        user = create(:user)
+        post = create(:post, author: user)
 
         post.update_post_counter
 
-        expect(user.reload.posts_counter).to eq(0)
+        expect(user.reload.posts_counter).to eq(1)
+      end
+    end
+
+    describe '#recent_comments' do
+      it 'returns the 5 most recent comments' do
+        user = create(:user)
+        post = create(:post, author: user)
+        comment1 = create(:comment, post: post, created_at: 5.days.ago)
+        comment2 = create(:comment, post: post, created_at: 3.days.ago)
+        comment3 = create(:comment, post: post, created_at: 1.day.ago)
+
+        recent_comments = post.recent_comments
+
+        expect(recent_comments).to match_array([comment3, comment2, comment1])
+      end
+
+      it 'returns the specified number of most recent comments' do
+        post = create(:post)
+        create(:comment, post: post, created_at: 5.days.ago)
+        comment2 = create(:comment, post: post, created_at: 3.days.ago)
+        comment3 = create(:comment, post: post, created_at: 1.day.ago)
+        create(:comment, post: post, created_at: 7.days.ago)
+
+        recent_comments = post.recent_comments(2)
+
+        expect(recent_comments).to eq([comment3, comment2])
       end
     end
   end
