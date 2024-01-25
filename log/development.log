@@ -2225,3 +2225,94 @@ Completed 200 OK in 34ms (Views: 13.1ms | ActiveRecord: 0.0ms | Allocations: 487
 
 
 >>>>>>> dev
+Started GET "/" for 127.0.0.1 at 2024-01-25 18:23:28 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MainController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering main/index.html.erb within layouts/application
+  Rendered main/index.html.erb within layouts/application (Duration: 0.6ms | Allocations: 181)
+  Rendered layout layouts/application.html.erb (Duration: 497.3ms | Allocations: 106731)
+Completed 200 OK in 510ms (Views: 501.9ms | ActiveRecord: 0.0ms | Allocations: 110811)
+
+
+Started GET "/users" for 127.0.0.1 at 2024-01-25 18:23:37 +0500
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  Rendered users/index.html.erb within layouts/application (Duration: 3.9ms | Allocations: 2734)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | Allocations: 2825)
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 0.0ms | Allocations: 14638)
+
+
+  
+ActionView::Template::Error (The asset "style.css" is not present in the asset pipeline.
+):
+    1: <%= stylesheet_link_tag 'style' %>
+    2: 
+    3: <div >
+    4:   <% @users.each do |user| %>
+  
+app/views/users/index.html.erb:1
+Started GET "/users" for 127.0.0.1 at 2024-01-25 18:24:14 +0500
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:4
+  Rendered users/index.html.erb within layouts/application (Duration: 141.4ms | Allocations: 29867)
+  Rendered layout layouts/application.html.erb (Duration: 145.0ms | Allocations: 32037)
+Completed 200 OK in 146ms (Views: 140.1ms | ActiveRecord: 5.3ms | Allocations: 32304)
+
+
+Started GET "/posts" for 127.0.0.1 at 2024-01-25 18:24:25 +0500
+  
+ActionController::RoutingError (No route matches [GET] "/posts"):
+  
+Started GET "/users/post" for 127.0.0.1 at 2024-01-25 18:24:45 +0500
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"post"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `show'
+Completed 404 Not Found in 19ms (ActiveRecord: 9.3ms | Allocations: 3772)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=post):
+  
+app/controllers/users_controller.rb:7:in `show'
+Started GET "/users/posts" for 127.0.0.1 at 2024-01-25 18:24:49 +0500
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"posts"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `show'
+Completed 404 Not Found in 3ms (ActiveRecord: 0.4ms | Allocations: 880)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=posts):
+  
+app/controllers/users_controller.rb:7:in `show'
+Started GET "/users/1" for 127.0.0.1 at 2024-01-25 18:24:56 +0500
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `show'
+Completed 404 Not Found in 3ms (ActiveRecord: 0.4ms | Allocations: 873)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=1):
+  
+app/controllers/users_controller.rb:7:in `show'
+Started GET "/users/posts" for 127.0.0.1 at 2024-01-25 18:25:23 +0500
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"posts"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `show'
+Completed 404 Not Found in 2ms (ActiveRecord: 0.2ms | Allocations: 876)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=posts):
+  
+app/controllers/users_controller.rb:7:in `show'
