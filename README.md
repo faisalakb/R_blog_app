@@ -88,6 +88,13 @@ To run the project, execute the following commands:
 - Twitter: [@faisalakb786](https://twitter.com/Faisalakb786)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/faisal-mumtaz-514a221a6/)
 
+👤 **Chimemwe**
+
+- LinkedIn: [Chimemwe] (https://www.linkedin.com/in/chimwemwe-mkandawire/)
+- Github; [Chimemwe] (https://github.com/chimwemwe007)
+- Twitter: [Chimemwe] (https://twitter.com/CHxMZ)
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
