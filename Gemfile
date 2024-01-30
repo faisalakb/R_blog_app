@@ -36,6 +36,7 @@ gem 'jbuilder'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
+factory_bot_rails-6.4.0, pg-1.5.4, importmap-rails-1.2.3, stimulus-rails-1.3.0, rspec-rails-6.0.3, irb-1.9.0, rdoc-6.6.0, psych-5.1.1.1
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
