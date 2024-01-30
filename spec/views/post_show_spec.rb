@@ -1,39 +1,33 @@
+# spec/views/post_show_spec.rb
+
 require 'rails_helper'
 
-RSpec.feature 'Post Show Page', type: :feature do
+RSpec.describe 'posts/show.html.erb', type: :view do
+  let(:user) { create(:user) }
+  let(:post) { create(:post, author: user) }
+  let!(:comments) { create_list(:comment, 3, post:, user: create(:user)) }
+
   before do
-    @user = User.create(name: 'Tom')
-    @post = Post.create(author: @user, title: 'Hello7', text: 'This is my seventh post')
-    @comment1 = Comment.create(post: @post, text: 'sample comment', user: @user)
-
-    visit user_post_path(@user, @post)
+    assign(:post, post)
+    assign(:comments, comments)
+    render
   end
 
-  scenario 'I can see the post\'s title' do
-    expect(page).to have_content('This is my seventh post')
+  it 'displays the post title' do
+    expect(rendered).to have_css('h2', text: "Post ##{post.id} by #{post.author.name}")
   end
 
-  scenario 'I can see who wrote the post' do
-    expect(page).to have_content('Yusaf')
+  it 'displays the number of comments and likes' do
+    expect(rendered).to have_css('.comLik p', text: "Comments: #{comments.count}, Likes: #{post.likes.count}")
   end
 
-  scenario 'I can see how many comments it has' do
-    expect(page).to have_content('Comments: 1, Likes: 0')
+  it 'displays the post body' do
+    expect(rendered).to have_css('.userPost p', text: post.text)
   end
 
-  scenario 'I can see how many likes it has' do
-    expect(page).to have_content('Comments: 1, Likes: 0')
-  end
-
-  scenario 'I can see the post body' do
-    expect(page).to have_content('This is my seventh post')
-  end
-
-  scenario 'I can see the username of each commentor' do
-    expect(page).to have_content('Yusaf:')
-  end
-
-  scenario 'I can see the comment each commentor left' do
-    expect(page).to have_content('sample comment')
+  it 'displays the comments with usernames' do
+    comments.each do |comment|
+      expect(rendered).to have_css('.userCom', text: "#{comment.user.name}: #{comment.text}")
+    end
   end
 end

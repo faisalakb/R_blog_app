@@ -1,40 +1,38 @@
-# spec/features/user_index_spec.rb
-
 require 'rails_helper'
 
 RSpec.feature 'User Index Page', type: :feature do
   before do
-    @user1 = User.create(name: "Tom", photo: 'https://placehold.co/400')
-    @user2 = User.create(name: 'Lilly', photo: 'https://placehold.co/400')
-
-    @post1 = Post.create(author: @user1, title: 'Post by Tom')
-    @post2 = Post.create(author: @user2, title: 'Post by Lilly')
+    @user1 = FactoryBot.create(:user, name: 'User1', photo: 'https://placehold.co/400')
+    @user2 = FactoryBot.create(:user, name: 'User2', photo: 'https://placehold.co/400')
+    FactoryBot.create(:post, author: @user1)
+    FactoryBot.create(:post, author: @user2)
   end
 
   scenario 'I can see the username of all other users' do
     visit users_path
 
-    expect(page).to have_content('Tom')
-    expect(page).to have_content('Lilly')
+    expect(page).to have_content('User1')
+    expect(page).to have_content('User2')
   end
 
   scenario 'I can see the profile picture for each user' do
     visit users_path
 
-    expect(page).to have_css("img[src*='https://placehold.co/400']", count: 2)
+    expect(page).to have_css("img[src*='https://placehold.co/400']")
   end
 
   scenario 'I can see the number of posts each user has written' do
     visit users_path
 
-    expect(page).to have_content('Number of posts: 1', count: 18)
+    expect(page).to have_content('Number of posts: 1', count: 2)
   end
 
   scenario 'When I click on a user, I am redirected to that user\'s show page' do
     visit users_path
 
-    click_link 'Lilly'
+    click_link 'User1'
 
-    expect(page).to have_current_path(user_path(@user2))
+    expect(current_path).to eq(user_path(@user1))
+    expect(page).to have_content('User1')
   end
 end

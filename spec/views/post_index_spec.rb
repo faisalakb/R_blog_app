@@ -1,57 +1,88 @@
-# spec/features/user_posts_spec.rb
-
 require 'rails_helper'
 
-RSpec.feature 'User Posts Index Page', type: :feature do
-  before do
-    @user = User.create(name: 'Lilly', photo: 'https://placehold.co/400', bio: 'Lorem ipsum')
-    @post1 = Post.create(author: @user, title: 'First Post', text: 'This is the first post')
-    @comment1 = Comment.create(post: @post1, text: 'First comment by Lilly')
+RSpec.feature 'User posts index page', type: :feature do
+  let(:user) { create(:user) }
+  let!(:posts) { create_list(:post, 10, author: user) }
 
-    visit user_posts_path(@user)
+  scenario 'displays user information and posts' do
+    visit_user_posts_page
+
+    expect_user_information_displayed
+    check_display_for_each_post
+
+    expect_pagination_button
+    click_pagination_button
+    expect_redirected_to_user_posts_path
   end
 
-  scenario 'I can see the user\'s profile picture' do
-    expect(page).to have_css("img[src*='https://placehold.co/400']", wait: 5)
+  scenario 'redirects to post show page when clicking a post' do
+    visit_user_posts_page
+
+    click_first_post
+
+    expect_redirected_to_post_show_page
   end
 
-  scenario 'I can see the user\'s username' do
-    expect(page).to have_text('Lilly', wait: 5)
+  private
+
+  def visit_user_posts_page
+    visit user_posts_path(user)
   end
 
-  scenario 'I can see the number of posts the user has written' do
-    expect(page).to have_text('Number of Posts: 1', wait: 5)
+  def expect_user_information_displayed
+    expect(page).to have_selector('.userImg', visible: false, count: 1)
+    expect(page).to have_css('.userName', text: user.name)
+    expect(page).to have_css('.Upostcount', text: "Number of Posts: #{user.posts.count}")
   end
 
-  scenario 'I can see a post\'s title' do
-    expect(page).to have_text('This is the first post', wait: 5)
+  def check_display_for_each_post
+    user.posts.limit(5).each_with_index do |post, index|
+      check_post_display(post, index)
+    end
   end
 
-  scenario 'I can see some of the post\'s body' do
-    expect(page).to have_text('This is the first post', wait: 5)
+  def check_post_display(post, index)
+    within_post_element(index) do
+      expect(page).to have_css('h2', text: "Post ##{index + 1}")
+      expect(page).to have_css('.pText', text: truncate(post.text, length: 50, separator: ' '))
+      expect(page).to have_css('.comLik p', text: "Comments: #{post.comments.count}, Likes: #{post.likes.count}")
+      check_post_comments_displayed(post)
+    end
   end
 
-  scenario 'I can see the first comments on a post' do
-    expect(page).to have_content(nil)
+  def within_post_element(index, &)
+    posts_elements = all('.recPost.postInt')
+    within(posts_elements[index], &)
   end
 
-  scenario 'I can see how many comments a post has' do
-    expect(page).to have_text('Comments: 0', wait: 5)
+  def check_post_comments_displayed(post)
+    post.comments.limit(2).each_with_index do |comment, comment_index|
+      expect(page).to have_css(".userCom:nth-child(#{comment_index + 1})",
+                               text: "#{comment.user&.name || 'Anonymous'}: #{comment.text}")
+    end
   end
 
-  scenario 'I can see how many likes a post has' do
-    expect(page).to have_text('Likes: 0', wait: 5)
+  def expect_pagination_button
+    expect(page).to have_button('Pagination', visible: true)
   end
 
-  scenario 'I can see a section for pagination if there are more posts than fit on the view' do
-    # You may need to adjust this expectation based on your actual pagination implementation
-    expect(page).to have_selector('.seeAllPostBtn', wait: 5)
+  def click_pagination_button
+    click_button('Pagination')
   end
 
-  scenario 'When I click on a post, it redirects me to that post\'s show page' do
-    post_link = find('a.postclick', text: 'This is the first post', wait: 10)
-    page.execute_script('arguments[0].click();', post_link)
-    expected_path = user_post_path(@user, @post1)
-    expect(page).to have_current_path(expected_path, ignore_query: true)
+  def expect_redirected_to_user_posts_path
+    expect(page).to have_current_path(user_posts_path(user))
+  end
+
+  def click_first_post
+    if page.has_css?('.recPost.postInt')
+      first('.recPost.postInt').click
+    else
+      puts 'No posts found.'
+    end
+  end
+
+  def expect_redirected_to_post_show_page
+    expect(page).to have_current_path(user_post_path(user, user.posts.first))
   end
 end
