@@ -35,7 +35,7 @@ RSpec.feature 'User show page', type: :feature do
       expect(page).to have_content('Likes: 0')
     end
   end
-  
+
   scenario 'redirects to post show page when clicking a post' do
     visit users_path
 
