@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-    @posts = @user.posts.includes { :comments }
+    @posts = @user.posts.includes(:comments)
   end
 
   def show
@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:user_id])
+    @user =  User.find(params[:user_id])
     @post = Post.new
   end
 
