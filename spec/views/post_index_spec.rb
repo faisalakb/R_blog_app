@@ -21,9 +21,10 @@ RSpec.feature 'User posts index page', type: :feature do
     user.posts.each_with_index do |post, index|
       within_post_element(index) do
         if post.recent_comments.any?
-          first_comment = post.recent_comments.first
-          expect(page).to have_css('.userCom p',
-                                   text: "#{first_comment.user&.name || 'Anonymous'}: #{first_comment.text}")
+          post.recent_comments.each_with_index do |comment, comment_index|
+            expect(page).to have_css(".userCom:nth-child(#{comment_index + 1})",
+                                     text: "#{comment.user&.name || 'Anonymous'}: #{comment.text}")
+          end
         else
           expect(page).to have_css('.userCom', text: 'No comments available')
         end
