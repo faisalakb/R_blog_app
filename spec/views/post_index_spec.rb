@@ -23,6 +23,8 @@ RSpec.feature 'User posts index page', type: :feature do
     expect_redirected_to_post_show_page
   end
 
+
+
   private
 
   def visit_user_posts_page
@@ -74,6 +76,15 @@ RSpec.feature 'User posts index page', type: :feature do
     expect(page).to have_current_path(user_posts_path(user))
   end
 
+  # I can see the first comments on a post
+  it 'can see the first comments of a post' do
+    posts.each do |post|
+      post.five_most_recent_comments.each do |comment|
+        expect(page).to have_content(comment.text)
+      end
+    end
+  end
+
   def click_first_post
     if page.has_css?('.recPost.postInt')
       first('.recPost.postInt').click
@@ -81,6 +92,7 @@ RSpec.feature 'User posts index page', type: :feature do
       puts 'No posts found.'
     end
   end
+  
 
   def expect_redirected_to_post_show_page
     expect(page).to have_current_path(user_post_path(user, user.posts.first))
