@@ -18,6 +18,10 @@ RSpec.feature 'User show page', type: :feature do
     expect(page).to have_current_path(user_posts_path(user))
   end
 
+  scenario 'If the user can see the number of posts written' do
+    expect(page).to have_content('Wrote 3 posts')
+  end
+
   scenario 'redirects to post show page when clicking a post' do
     visit users_path
 
