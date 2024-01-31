@@ -5983,3 +5983,98 @@ Processing by UsersController#show as HTML
 Completed 200 OK in 25ms (Views: 18.4ms | ActiveRecord: 1.7ms | Allocations: 12472)
 
 
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4299283035529105365)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4299283035529105365)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4299283035529105365)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+Migrating to AddDeviseToUsers (20240131094454)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (13.8ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (5.9ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp(6)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp(6)[0m
+  [1m[35m (20.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(4299283035529105365)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4299283035529105365)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddForeignKeys (20240112103048)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "posts" DROP CONSTRAINT "fk_rails_04d13ef8c7"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "likes" DROP CONSTRAINT "fk_rails_1e09b5dabf"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "likes" DROP CONSTRAINT "fk_rails_87a8aac469"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "comments" DROP CONSTRAINT "fk_rails_03de2dc08c"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "comments" DROP CONSTRAINT "fk_rails_2fd19c0db7"[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (0.7ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20240112103048'[0m
+  [1m[36mTRANSACTION (11.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4299283035529105365)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4299283035529105365)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+Migrating to AddForeignKeys (20240112103048)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_2fd19c0db7"
+FOREIGN KEY ("post_id")
+  REFERENCES "posts" ("id")
+ ON DELETE CASCADE[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_03de2dc08c"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ ON DELETE CASCADE[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "likes" ADD CONSTRAINT "fk_rails_87a8aac469"
+FOREIGN KEY ("post_id")
+  REFERENCES "posts" ("id")
+ ON DELETE CASCADE[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "likes" ADD CONSTRAINT "fk_rails_1e09b5dabf"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ ON DELETE CASCADE[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "posts" ADD CONSTRAINT "fk_rails_04d13ef8c7"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+ ON DELETE CASCADE[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240112103048') RETURNING "version"[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddDeviseToUsers (20240131094454)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.6ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (7.5ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp(6)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp(6)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_token" character varying[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmed_at" timestamp(6)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_sent_at" timestamp(6)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "unconfirmed_email" character varying[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4299283035529105365)[0m
+  [1m[36mUser Pluck (0.5ms)[0m  [1m[34mSELECT "email" FROM "users" GROUP BY "email" HAVING (count(*) > 1)[0m
+  [1m[36mUser Pluck (0.9ms)[0m  [1m[34mSELECT "email" FROM "users" GROUP BY "email" HAVING (count(*) > 1)[0m
+  [1m[36mUser Pluck (0.8ms)[0m  [1m[34mSELECT "users"."email" FROM "users" GROUP BY "users"."email" HAVING (count(*) > 1)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4299283035529105365)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+Migrating to AddDeviseToUsers (20240131094454)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.8ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (6.0ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp(6)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp(6)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_token" character varying[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmed_at" timestamp(6)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_sent_at" timestamp(6)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "unconfirmed_email" character varying[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4299283035529105365)[0m
