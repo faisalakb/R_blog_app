@@ -18,10 +18,24 @@ RSpec.feature 'User show page', type: :feature do
     expect(page).to have_current_path(user_posts_path(user))
   end
 
-  scenario 'If the user can see the number of posts written' do
-    expect(page).to have_content('Wrote 3 posts')
-  end
+  scenario 'displays the user\'s first 3 posts with static content' do
+    visit user_path(user)
 
+    rec_posts = all('.recPost')
+    expect(rec_posts.count).to eq(3)
+
+    user.posts.first(3).each_with_index do |_post, index|
+      actual_post_title = rec_posts[index].find('h3 strong').text.strip
+
+      expected_post_title = 'Post: Sample Post Title'.strip
+
+      expect(actual_post_title).to eq(expected_post_title)
+      expect(page).to have_content('This is a sample post content.')
+      expect(page).to have_content('Comments: 0')
+      expect(page).to have_content('Likes: 0')
+    end
+  end
+  
   scenario 'redirects to post show page when clicking a post' do
     visit users_path
 

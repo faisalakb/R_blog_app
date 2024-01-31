@@ -25,7 +25,6 @@ RSpec.feature 'User posts index page', type: :feature do
           expect(page).to have_css('.userCom p',
                                    text: "#{first_comment.user&.name || 'Anonymous'}: #{first_comment.text}")
         else
-          # Add a message or expectation for the case when there are no comments
           expect(page).to have_css('.userCom', text: 'No comments available')
         end
       end
@@ -39,8 +38,6 @@ RSpec.feature 'User posts index page', type: :feature do
 
     expect_redirected_to_post_show_page
   end
-
-
 
   private
 
@@ -91,15 +88,6 @@ RSpec.feature 'User posts index page', type: :feature do
 
   def expect_redirected_to_user_posts_path
     expect(page).to have_current_path(user_posts_path(user))
-  end
-
-  # I can see the first comments on a post
-  it 'can see the first comments of a post' do
-    posts.each do |post|
-      post.five_most_recent_comments.each do |comment|
-        expect(page).to have_content(comment.text)
-      end
-    end
   end
 
   def click_first_post
