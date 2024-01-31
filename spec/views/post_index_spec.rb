@@ -15,6 +15,23 @@ RSpec.feature 'User posts index page', type: :feature do
     expect_redirected_to_user_posts_path
   end
 
+  scenario 'displays the first comments on a post' do
+    visit_user_posts_page
+
+    user.posts.each_with_index do |post, index|
+      within_post_element(index) do
+        if post.recent_comments.any?
+          first_comment = post.recent_comments.first
+          expect(page).to have_css('.userCom p',
+                                   text: "#{first_comment.user&.name || 'Anonymous'}: #{first_comment.text}")
+        else
+          # Add a message or expectation for the case when there are no comments
+          expect(page).to have_css('.userCom', text: 'No comments available')
+        end
+      end
+    end
+  end
+
   scenario 'redirects to post show page when clicking a post' do
     visit_user_posts_page
 
