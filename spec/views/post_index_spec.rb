@@ -92,7 +92,6 @@ RSpec.feature 'User posts index page', type: :feature do
       puts 'No posts found.'
     end
   end
-  
 
   def expect_redirected_to_post_show_page
     expect(page).to have_current_path(user_post_path(user, user.posts.first))
