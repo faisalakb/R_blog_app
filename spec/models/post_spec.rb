@@ -31,9 +31,9 @@ RSpec.describe Post, type: :model do
       it 'returns the 5 most recent comments' do
         user = create(:user)
         post = create(:post, author: user)
-        comment1 = create(:comment, post: post, created_at: 5.days.ago)
-        comment2 = create(:comment, post: post, created_at: 3.days.ago)
-        comment3 = create(:comment, post: post, created_at: 1.day.ago)
+        comment1 = create(:comment, post:, created_at: 5.days.ago)
+        comment2 = create(:comment, post:, created_at: 3.days.ago)
+        comment3 = create(:comment, post:, created_at: 1.day.ago)
 
         recent_comments = post.recent_comments
 
@@ -42,10 +42,10 @@ RSpec.describe Post, type: :model do
 
       it 'returns the specified number of most recent comments' do
         post = create(:post)
-        create(:comment, post: post, created_at: 5.days.ago)
-        comment2 = create(:comment, post: post, created_at: 3.days.ago)
-        comment3 = create(:comment, post: post, created_at: 1.day.ago)
-        create(:comment, post: post, created_at: 7.days.ago)
+        create(:comment, post:, created_at: 5.days.ago)
+        comment2 = create(:comment, post:, created_at: 3.days.ago)
+        comment3 = create(:comment, post:, created_at: 1.day.ago)
+        create(:comment, post:, created_at: 7.days.ago)
 
         recent_comments = post.recent_comments(2)
 
