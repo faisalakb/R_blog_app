@@ -27,8 +27,9 @@ Rails.application.routes.draw do
       resources :comments, only: [:index, :create]
     end
 
-
-
+    get '/users/:user_id/posts/:post_id/comments', to: 'comments#index'
+    post '/users/:user_id/posts/:post_id/comments', to: 'comments#create'
+  
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
