@@ -27,8 +27,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:index, :create]
     end
 
-    get '/users/:user_id/posts/:post_id/comments', to: 'comments#index'
-    post '/users/:user_id/posts/:post_id/comments', to: 'comments#create'
+
 
   end
 
