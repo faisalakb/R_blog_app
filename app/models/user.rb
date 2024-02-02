@@ -19,4 +19,8 @@ class User < ApplicationRecord
     reload
     Rails.logger.info("Posts counter updated to: #{posts_counter}")
   end
+
+  def admin?
+    role == 'admin'
+  end
 end

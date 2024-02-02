@@ -1,16 +1,16 @@
 class PostsController < ApplicationController
+  before_action :set_user, only: %i[index show new create]
+  before_action :set_post, only: %i[show destroy]
+
   def index
-    @user = User.find(params[:user_id])
     @posts = @user.posts.includes(:comments)
   end
 
   def show
-    @user = User.find(params[:user_id])
-    @post = Post.find(params[:id])
+    @comments = @post.comments.includes(:user)
   end
 
   def new
-    @user = User.find(params[:user_id])
     @post = Post.new
   end
 
@@ -27,7 +27,26 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    authorize! :destroy, @post
+
+    @post.destroy
+    redirect_to user_posts_path(current_user), notice: 'Post was successfully destroyed.'
+  end
+
   private
+
+  def set_user
+    @user = User.find_by(id: params[:user_id])
+
+    return unless @user.nil?
+
+    render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
   def post_params
     params.require(:post).permit(:title, :text)
