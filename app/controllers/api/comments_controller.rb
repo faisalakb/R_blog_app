@@ -1,16 +1,15 @@
 class Api::CommentsController < ApplicationController
-  before_action :set_user_and_post, only: [:index, :create]
+  before_action :set_user_and_post, only: %i[index create]
 
   def index
     comments = @post.comments
-    render json: { user_id: @user.id, post_id: @post.id, comments: comments }
+    render json: { user_id: @user.id, post_id: @post.id, comments: }
   end
 
-#create
   def create
-  comment = @post.comments.create(comment_params.merge(user: @user))
-  render json: comment, status: :created
-end
+    comment = @post.comments.create(comment_params.merge(user: @user))
+    render json: comment, status: :created
+  end
 
   private
 
