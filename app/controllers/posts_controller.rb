@@ -28,8 +28,11 @@ class PostsController < ApplicationController
   end
 
   #destroy 
-
-  
+  def destroy
+    authorize! :destroy, @post
+    @post.destroy
+    redirect_to user_posts_path(current_user), notice: 'Post was successfully destroyed.'
+  end 
 
   private
 
