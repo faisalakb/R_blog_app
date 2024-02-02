@@ -7,6 +7,10 @@ class Api::CommentsController < ApplicationController
   end
 
 #create
+  def create
+  comment = @post.comments.create(comment_params.merge(user: @user))
+  render json: comment, status: :created
+end
 
   private
 
