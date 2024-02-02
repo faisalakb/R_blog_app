@@ -20,22 +20,5 @@ class CommentsController < ApplicationController
     end
   end
 
-  def destroy
-    @comment = Comment.find(params[:id])
-    authorize! :destroy, @comment
-
-    @comment.destroy
-    redirect_to user_post_path(@user, @post), notice: 'Comment was successfully destroyed.'
-  end
-
-  private
-
-  def comment_params
-    params.require(:comment).permit(:text)
-  end
-
-  def set_user_and_post
-    @user = User.find(params[:user_id])
-    @post = Post.find(params[:post_id])
-  end
+ #destroy 
 end
