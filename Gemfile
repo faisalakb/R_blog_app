@@ -36,6 +36,9 @@ group :development, :test do
   gem 'letter_opener'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
+  gem 'rswag-specs'
+  gem 'rswag-api'
+  gem 'rswag-ui'
 end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
@@ -54,3 +57,4 @@ end
 
 gem 'cancancan', '~> 1.9'
 gem 'devise', '~> 4.9'
+

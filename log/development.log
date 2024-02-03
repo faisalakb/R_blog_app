@@ -15039,3 +15039,21 @@ Create action reached!
 Completed 201 Created in 15ms (Views: 0.4ms | ActiveRecord: 4.8ms | Allocations: 3804)
 
 
+Started GET "/api-docs" for 127.0.0.1 at 2024-02-03 15:09:58 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (3.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/api-docs"):
+  
+Started GET "/api-docs" for 127.0.0.1 at 2024-02-03 15:12:08 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (2.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/api-docs/index.html" for 127.0.0.1 at 2024-02-03 15:12:08 +0500
+Started GET "/api-docs/swagger-ui.css" for 127.0.0.1 at 2024-02-03 15:12:09 +0500
+Started GET "/api-docs/swagger-ui-bundle.js" for 127.0.0.1 at 2024-02-03 15:12:09 +0500
+Started GET "/api-docs/swagger-ui-standalone-preset.js" for 127.0.0.1 at 2024-02-03 15:12:09 +0500
+Started GET "/api-docs/favicon-16x16.png" for 127.0.0.1 at 2024-02-03 15:12:14 +0500
+Started GET "/api-docs" for 127.0.0.1 at 2024-02-03 15:12:14 +0500
+Started GET "/api-docs/index.html" for 127.0.0.1 at 2024-02-03 15:12:14 +0500
+Started GET "/api-docs/swagger-ui-bundle.js" for 127.0.0.1 at 2024-02-03 15:12:15 +0500
+Started GET "/api-docs/swagger-ui-standalone-preset.js" for 127.0.0.1 at 2024-02-03 15:12:15 +0500
+Started GET "/api-docs/swagger-ui.css" for 127.0.0.1 at 2024-02-03 15:12:15 +0500
+Started GET "/api-docs/v1/swagger.yaml" for 127.0.0.1 at 2024-02-03 15:12:15 +0500

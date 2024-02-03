@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # Mount Rswag UI and API engines
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+
   devise_for :users
 
   resources :users, only: [:index, :show] do
