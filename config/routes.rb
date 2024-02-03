@@ -11,10 +11,14 @@ Rails.application.routes.draw do
     end
   end
 
-  # Remove the redundant resources :posts block
-  resources :comments do
-    member do
-      delete :destroy
+  resources :comments, only: [:destroy] # Move delete action outside nested resources
+
+  # API routes
+  namespace :api, defaults: { format: :json } do
+    resources :users, only: [:index, :show] do
+      resources :posts, only: [:index] do
+        resources :comments, only: [:index, :create]
+      end
     end
   end
 
